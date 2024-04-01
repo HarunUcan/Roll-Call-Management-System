@@ -7,7 +7,7 @@
 
 * Eğer projeyi çalıştırdıktan sonra telefon gibi farklı cihazlardan da test etmek isterseniz bu terminal komutunu kendinize göre düzenleyerek kullanabilirsiniz : dotnet run --urls "http://+:6000;https://+:6010"
 
-* Projeyi ayağa kaldırdıktan sonra https://192.168.1.16:6010/ornek-veri-ekle adresini kendinize göre düzenleyip giderek veritabanında örnek 3 akademisyen ve 3 öğrenci verisi oluşturabilirsiniz.
+* Projeyi ayağa kaldırdıktan sonra https://192.168.1.16:6010/ornek-veri-ekle adresini kendinize göre düzenleyip bu adrese giderek veritabanında 3 akademisyen ve 3 öğrenci verisi oluşturabilirsiniz.
 
 ## Görseller
 
