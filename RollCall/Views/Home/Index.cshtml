@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Yoklama Yönetim Sistemi";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+
+
+<body class="bg-light">
+
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+
+        <div
+            class="roll-call-container d-flex flex-column justify-content-between align-items-center border-style shadow p-3 mb-5 bg-body bg-white">
+
+            <img src="~/images/yazilim_akademi_logo.png" alt="" class="logo img-fluid mt-4">
+
+            <p class="h3 mt-5 text-secondary">Yoklama Yönetim Sistemi</p>
+
+            <div class="button-container mt-5">
+                <a class="btn btn-primary w-75 p-3" role="button asp-area=" asp-controller="Akademisyen"
+                    asp-action="Yonetim">
+                    <p class="fw-bolder my-0 fs-5">Akademisyen Girişi</p>
+                </a>
+                <a class="btn btn-success w-75 p-3" role="button" asp-controller="OgrenciGiris"
+                    asp-action="OgrenciGiris">
+                    <p class="fw-bolder my-0 fs-5">Öğrenci Girişi</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

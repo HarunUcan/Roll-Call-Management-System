@@ -1,0 +1,138 @@
+@{
+    ViewData["Title"] = "Öğrenci Girişi";
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+
+<body class="bg-light">
+
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+
+        <div
+            class="roll-call-container d-flex flex-column justify-content-between align-items-center border-style shadow p-3 mb-5 bg-body bg-white">
+
+            <img src="~/images/yazilim_akademi_logo.png" alt="" class="logo img-fluid mt-4">
+
+            <p class="h3 mt-4 mb-4 text-secondary">Öğrenci Giriş</p>
+
+            <form class="d-flex flex-column justify-content-between align-items-center" method="POST"
+                asp-controller="OgrenciGiris" asp-action="YoklamaKontrol">
+                <div class="form-group mb-3 mt-2">
+                    <input type="number" class="form-control" id="student-id" aria-describedby="numberHelp"
+                        name="studentId" placeholder="Öğrenci Numarası" oninput="checkStudentId()">
+
+                </div>
+                <div class="student-info form-group d-flex">
+                    <div class="px-2">
+                        <label for="name-surname">Öğrenci Adı Soyadı</label>
+                        <input class="form-control" type="text" placeholder="Ad Soyad" id="name-surname" readonly>
+                    </div>
+                    <div class="px-2">
+                        <label for="department">Öğrenci Departmanı</label>
+                        <input class="form-control" type="text" placeholder="Departman" id="department" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4 mt-2">
+                    <input type="number" class="form-control mt-3" id="activation-code" aria-describedby="numberHelp"
+                        name="activationCode" placeholder="Aktivasyon Kodu" onload="checkActivationCode()"
+                        oninput="checkActivationCode()">
+
+                </div>
+                <div class="w-100 px-2">
+                    <input class="form-control" type="text" placeholder="Ders" id="lesson-name" readonly>
+                </div>
+                <button type="submit" class="btn btn-success mt-4 mb-4 w-50 py-2" id="check-roll-call">Derse
+                    Katıl</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        @* var url = "https://192.168.1.16:6010/"; *@
+
+        const rollCallCode = new URLSearchParams(window.location.search).get('code');
+        document.getElementById('activation-code').value = rollCallCode;
+
+
+        if ("@ViewBag.State" == 1)
+            alert("@ViewBag.Message");
+
+        function checkStudentId() {
+
+            if (document.getElementById('student-id').value.toString().length > 10) {
+                var urlAction = '@Url.Action("OgrenciGetir", "OgrenciGiris")' + '?studentId=' + encodeURIComponent(document.getElementById('student-id').value);
+
+                //get data from database
+                fetch(urlAction, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log('Success:', data);
+                        studentName = data.ad;
+                        studentSurname = data.soyad;
+                        document.getElementById('name-surname').value = JSON.stringify(data.Ad).substring(1, data.Ad.length + 1) + " " + JSON.stringify(data.Soyad).substring(1, data.Soyad.length + 1);
+                        document.getElementById('department').value = JSON.stringify(data.Departman).substring(1, data.Departman.length + 1);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        document.getElementById('name-surname').value = "";
+                        document.getElementById('department').value = "";
+                    });
+
+            }
+            else {
+                document.getElementById('name-surname').value = "";
+                document.getElementById('department').value = "";
+            }
+        }
+        function checkActivationCode() {
+            if (document.getElementById('activation-code').value.toString().length > 6) {
+                var urlAction = '@Url.Action("DersGetir", "OgrenciGiris")' + '?activationCode=' + encodeURIComponent(document.getElementById("activation-code").value);
+
+                fetch(urlAction, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log('Success:', data);
+                        document.getElementById('lesson-name').value = JSON.stringify(data).substring(1, data.length + 1);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        document.getElementById('lesson-name').value = "";
+                    });
+
+            }
+            else {
+                document.getElementById('lesson-name').value = "";
+            }
+        }
+
+        var counter = 0;
+
+        function activationCodePrinter() {
+            if (counter < 3) {
+                counter++;
+                checkActivationCode();
+                checkStudentId();
+            }
+            else
+                clearInterval(activationCodePrinter);
+
+        }
+        setInterval(activationCodePrinter, 250);
+
+    </script>
+
+</body>
+
+</html>
