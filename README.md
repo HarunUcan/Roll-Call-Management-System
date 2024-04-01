@@ -10,7 +10,16 @@
 * Projeyi ayağa kaldırdıktan sonra https://192.168.1.16:6010/ornek-veri-ekle adresini kendinize göre düzenleyip giderek veritabanında örnek 3 akademisyen ve 3 öğrenci verisi oluşturabilirsiniz.
 
 ## Görseller
+
 ### Bilgisayar
+
 ![Ekran görüntüsü 2024-04-01 091335](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/92331f4e-7cf8-445a-889d-20441517f993)
 ![Ekran görüntüsü 2024-04-01 091246](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/530b359e-14b0-44c8-9a6b-61e371a8ada0)
 ![Ekran görüntüsü 2024-04-01 091426](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/3aa9a021-5593-4914-975a-6d77b51e718a)
+
+### Telefon
+
+![Screenshot_20240401_092152_Chrome](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/001c6704-94fb-465f-b38e-548f7cd0d165)
+![Screenshot_20240401_092021_Chrome](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/c098c46f-a358-41cf-8ca8-aaacb34fc6d1)
+![Screenshot_20240401_092055_Chrome](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/97b0631d-8fc4-4882-bb5b-780393a3681a)
+
