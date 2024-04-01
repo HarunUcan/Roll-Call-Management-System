@@ -71,11 +71,11 @@ public class YoklamaController : Controller
             }
             catch (Exception)
             {
-                return View();
+                return RedirectToAction("Yonetim", "Akademisyen", new { state = 4 });
             }
         }
 
-        return View();
+        return RedirectToAction("Yonetim", "Akademisyen", new { state = 4 });
     }
 
     [HttpGet("yoklama-sil")]
