@@ -19,8 +19,7 @@
 
 ### Telefon
 
-
-<img src="https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/001c6704-94fb-465f-b38e-548f7cd0d165" width="100">
-![Screenshot_20240401_092021_Chrome](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/c098c46f-a358-41cf-8ca8-aaacb34fc6d1)
-![Screenshot_20240401_092055_Chrome](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/97b0631d-8fc4-4882-bb5b-780393a3681a)
+<img src="https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/001c6704-94fb-465f-b38e-548f7cd0d165" width="300">
+<img src="https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/c098c46f-a358-41cf-8ca8-aaacb34fc6d1" width="300">
+<img src="https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/97b0631d-8fc4-4882-bb5b-780393a3681a" width="300">
 
