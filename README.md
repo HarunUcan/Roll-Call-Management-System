@@ -13,9 +13,9 @@
 
 ### Bilgisayar
 
-![Ekran görüntüsü 2024-04-01 091335](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/92331f4e-7cf8-445a-889d-20441517f993)
-![Ekran görüntüsü 2024-04-01 091246](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/530b359e-14b0-44c8-9a6b-61e371a8ada0)
-![Ekran görüntüsü 2024-04-01 091426](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/3aa9a021-5593-4914-975a-6d77b51e718a)
+![Ekran görüntüsü 2024-04-01 091335](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/92331f4e-7cf8-445a-889d-20441517f993 | width=100)
+![Ekran görüntüsü 2024-04-01 091246](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/530b359e-14b0-44c8-9a6b-61e371a8ada0 | width=100)
+![Ekran görüntüsü 2024-04-01 091426](https://github.com/HarunUcan/Roll-Call-Management-System/assets/129796812/3aa9a021-5593-4914-975a-6d77b51e718a | width=100)
 
 ### Telefon
 
