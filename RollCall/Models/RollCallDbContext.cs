@@ -9,13 +9,17 @@ public class RollCallDbContext : DbContext
     public DbSet<Akademisyen>? Instructors { get; set; }
     public DbSet<Ogrenci>? Students { get; set; }
 
-    private string pwdText = "drowssaP";
+    private readonly string psdText = "drowssaP";
 
 
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string reversedPwd = new string(pwdText.Reverse().ToArray());
-        options.UseSqlServer($"Server=localhost; Database=RollCall; User Id=sa; {reversedPwd}=sa1234SA; MultipleActiveResultSets=true; Trust Server Certificate=true;");
+        if (!optionsBuilder.IsConfigured)
+        {
+            string reversedPsd = new string(psdText.Reverse().ToArray());
+            optionsBuilder.UseSqlServer($"Server=localhost; Database=RollCall; User Id=sa; {reversedPsd}=sa1234SA; MultipleActiveResultSets=true; Trust Server Certificate=true;");
+        }
+        
     }
 }

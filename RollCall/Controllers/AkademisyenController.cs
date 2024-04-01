@@ -8,14 +8,8 @@ namespace RollCall.Controllers;
 
 public class AkademisyenController : Controller
 {
-    private readonly ILogger<AkademisyenController> _logger;
     private RollCallDbContext _context = new RollCallDbContext();
 
-
-    public AkademisyenController(ILogger<AkademisyenController> logger)
-    {
-        _logger = logger;
-    }
 
     [HttpGet("akademisyen-giris")]
     public IActionResult AkademisyenGiris()
@@ -53,19 +47,7 @@ public class AkademisyenController : Controller
         }
     }
 
-    [HttpGet("akademisyen-yonetim/kod-olustur")]
-    public int KodOlustur()
-    {
-        Random rnd = new Random();
-        int code = rnd.Next(1000000, 9999000);
-        // Veriyi JSON formatına dönüştür
-
-        // JSON verisini döndür
-        return code;
-        // Random rnd = new Random();
-        // int code = rnd.Next(1000000, 9999000);
-        // return code.ToString();
-    }
+    
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

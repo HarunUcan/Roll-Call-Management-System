@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RollCall.Models;
@@ -7,67 +8,66 @@ namespace RollCall.Controllers;
 
 public class YoklamaController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-    RollCallDbContext _context = new RollCallDbContext();
+    readonly RollCallDbContext _context = new RollCallDbContext();
 
-    public YoklamaController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
 
     [HttpPost("yoklama-olustur")]
     public IActionResult Create(string startTime, int Instructors, string lessonName)
     {
 
 
-        if (startTime != null && Instructors != 0 && lessonName != null)
+        if (startTime != null && Instructors != 0 && lessonName != null && _context != null)
         {
             try
             {
-                Random random = new Random();
                 int activationCode;
+                var rollCalls = _context.RollCalls;
+
                 do
                 {
-                    activationCode = random.Next(1000000, 9999000);
-                } while (_context.RollCalls?.FirstOrDefault(x => x.AktivasyonKodu == activationCode.ToString()) != null);
+                    activationCode = RandomCodeGenerator();
+                } while (rollCalls?.FirstOrDefault(x => x.AktivasyonKodu == activationCode.ToString()) != null);
 
 
                 int startHour = int.Parse(startTime.Split(".")[0]);
                 int startMinute = int.Parse(startTime.Split(".")[1]);
 
-                DateTime startTimeDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, startHour, startMinute, DateTime.Now.Second);
+                DateTime startTimeDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, startHour, startMinute, DateTime.Now.Second,DateTimeKind.Utc);
                 DateTime endTime = DateTime.Now.AddMinutes(20);
+                DateTime earliestTime = DateTime.Now.AddMinutes(-15);
+                DateTime latestTime = DateTime.Now.AddMinutes(15);
+
                 //time check for the start time 15 minutes before the current time and 15 minutes after the current time
-                if (startTimeDate < DateTime.Now.AddMinutes(-15) || startTimeDate > DateTime.Now.AddMinutes(15))
+                if (startTimeDate < earliestTime || startTimeDate > latestTime)
                 {
                     return RedirectToAction("Yonetim", "Akademisyen", new { activationCode = activationCode, state = 3 });
+
                 }
 
 
-                if (_context != null)
+
+                var instructor = _context.Instructors?.FirstOrDefault(x => x.Id == Instructors);
+                
+                var ogretimElemani = instructor != null ? instructor.Ad + " " + instructor.Soyad : "";
+                    
+                rollCalls?.Add(new Yoklama
                 {
-                    var instructor = _context.Instructors?.FirstOrDefault(x => x.Id == Instructors);
-                    var ogretimElemani = instructor?.Ad + " " + instructor?.Soyad ?? string.Empty;
+                    DersAdi = lessonName,
+                    AktivasyonKodu = activationCode.ToString(),
+                    OgretimElemani = ogretimElemani,
+                    YoklamaBaslangic = startTimeDate,
+                    YoklamaBitis = endTime,
+                    Katilimcilar = ""
+                });
 
-                    if (_context.RollCalls != null)
-                    {
-                        _context.RollCalls.Add(new Yoklama
-                        {
-                            DersAdi = lessonName,
-                            AktivasyonKodu = activationCode.ToString(),
-                            OgretimElemani = ogretimElemani,
-                            YoklamaBaslangic = startTimeDate,
-                            YoklamaBitis = endTime,
-                            Katilimcilar = ""
-                        });
-
-                        _context.SaveChanges();
-                    }
-                }
+                _context.SaveChanges();
+                    
+                
 
                 ViewBag.ActivationCode = activationCode;
 
                 return RedirectToAction("Yonetim", "Akademisyen", new { activationCode = activationCode, state = 1 });
+
             }
             catch (Exception)
             {
@@ -77,6 +77,32 @@ public class YoklamaController : Controller
 
         return RedirectToAction("Yonetim", "Akademisyen", new { state = 4 });
     }
+
+    
+
+    public int RandomCodeGenerator()
+    {
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            byte[] randomNumber = new byte[4];
+            rng.GetBytes(randomNumber);
+            int value = BitConverter.ToInt32(randomNumber, 0);
+            return Math.Abs(value % 9000000) + 1000000;
+        }
+    }
+
+    [HttpGet("ornek-sayi")]
+    public int KodOlustur()
+    {
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            byte[] randomNumber = new byte[4];
+            rng.GetBytes(randomNumber);
+            int value = BitConverter.ToInt32(randomNumber, 0);
+            return Math.Abs(value % 9000000) + 1000000;
+        }
+    }
+    
 
     [HttpGet("yoklama-sil")]
     public bool Delete([FromQuery] string activationCode)
@@ -183,24 +209,23 @@ public class YoklamaController : Controller
                 Departman = "Makine Mühendisliği"
             };
 
-            if (_context != null)
+            
+            if (_context.Instructors != null)
             {
-                if (_context.Instructors != null)
-                {
-                    _context.Instructors.Add(instructor1);
-                    _context.Instructors.Add(instructor2);
-                    _context.Instructors.Add(instructor3);
-                }
-
-                if (_context.Students != null)
-                {
-                    _context.Students.Add(student1);
-                    _context.Students.Add(student2);
-                    _context.Students.Add(student3);
-                }
-
-                _context.SaveChanges();
+                _context.Instructors.Add(instructor1);
+                _context.Instructors.Add(instructor2);
+                _context.Instructors.Add(instructor3);
             }
+
+            if (_context.Students != null)
+            {
+                _context.Students.Add(student1);
+                _context.Students.Add(student2);
+                _context.Students.Add(student3);
+            }
+
+            _context.SaveChanges();
+            
         }
     }
 

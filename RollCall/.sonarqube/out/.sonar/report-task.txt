@@ -1,0 +1,6 @@
+projectKey=rollcall
+serverUrl=http://localhost:8094
+serverVersion=10.4.1.88267
+dashboardUrl=http://localhost:8094/dashboard?id=rollcall
+ceTaskId=8fd0bb0f-88d8-4eb3-91fc-53e653002115
+ceTaskUrl=http://localhost:8094/api/ce/task?id=8fd0bb0f-88d8-4eb3-91fc-53e653002115

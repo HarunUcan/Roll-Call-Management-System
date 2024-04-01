@@ -8,7 +8,7 @@ namespace RollCall.Controllers;
 public class OgrenciGirisController : Controller
 {
 
-    private RollCallDbContext _context = new RollCallDbContext();
+    private readonly RollCallDbContext _context = new RollCallDbContext();
 
 
     [HttpGet("ogrenci-giris")]
